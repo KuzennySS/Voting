@@ -1,3 +1,4 @@
+/*
 package voting.util;
 
 import voting.HasId;
@@ -82,6 +83,7 @@ public class ValidationUtil {
         }
     }
 
+*/
 /*    public static Throwable logAndGetRootCause(Logger log, HttpServletRequest req, Exception e, boolean logException, ErrorType errorType) {
         Throwable rootCause = ValidationUtil.getRootCause(e);
         if (logException) {
@@ -90,5 +92,6 @@ public class ValidationUtil {
             log.warn("{} at request  {}: {}", errorType, req.getRequestURL(), rootCause.toString());
         }
         return rootCause;
-    }*/
-}
+    }*//*
+
+}*/
