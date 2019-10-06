@@ -29,6 +29,9 @@
         <jsoup.version>1.12.1</jsoup.version>
         <javax-el.version>3.0.1-b11</javax-el.version>
 
+        <!--DB-->
+        <postgresql.version>42.2.6</postgresql.version>
+
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -82,6 +85,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>5.1.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
         </dependency>
 
         <dependency>

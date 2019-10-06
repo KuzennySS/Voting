@@ -22,7 +22,7 @@ public class Voting extends AbstractBaseEntity  {
 //    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDate votingDate;
 
-    @Column(name = "restaurantId", nullable = false)
+    @Column(name = "restaurant_Id", nullable = false)
     @NotNull
     private Integer restaurantId;
 
@@ -65,5 +65,14 @@ public class Voting extends AbstractBaseEntity  {
         this.userId = userId;
         this.votingDate = votingDate;
         this.restaurantId = restaurantId;
+    }
+
+    @Override
+    public String toString() {
+        return "Voting{" +
+                "userId=" + userId +
+                ", votingDate=" + votingDate +
+                ", restaurantId=" + restaurantId +
+                '}';
     }
 }

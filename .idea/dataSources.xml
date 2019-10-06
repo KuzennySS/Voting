@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="HSQLDB" uuid="f6de2a16-05db-4a9d-9d0a-33e4862d8610">
+    <data-source source="LOCAL" name="HsqldbInMemory" uuid="f6de2a16-05db-4a9d-9d0a-33e4862d8610">
       <driver-ref>hsqldb.local</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
       <jdbc-url>jdbc:hsqldb:mem:vote</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="postgres" uuid="2b4a5058-6e58-4f4f-89c8-d755fdcd1398">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/vote</jdbc-url>
     </data-source>
   </component>
 </project>

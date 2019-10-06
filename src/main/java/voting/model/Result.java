@@ -47,8 +47,21 @@ public class Result extends AbstractBaseEntity {
     public Result() {
     }
 
-    public Result(@NotNull Integer restaurantId, @NotNull Integer countVote) {
+    public Result(Integer id, @NotNull Integer restaurantId, @NotNull Integer countVote) {
+        super(id);
         this.restaurantId = restaurantId;
         this.countVote = countVote;
+    }
+
+    public Result(@NotNull Integer restaurantId, @NotNull Integer countVote) {
+        this(null, restaurantId, countVote);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "restaurantId=" + restaurantId +
+                ", countVote=" + countVote +
+                '}';
     }
 }

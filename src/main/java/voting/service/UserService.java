@@ -36,13 +36,13 @@ public class UserService /*implements UserDetailsService*/ {
     }
 
 
-    @CacheEvict(value = "users", allEntries = true)
+//    @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
         return repository.save(prepareToSave(user/*, passwordEncoder*/));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
+//    @CacheEvict(value = "users", allEntries = true)
 //    public void delete(int id) {
 //        checkNotFoundWithId(repository.delete(id), id);
 //    }
@@ -61,7 +61,7 @@ public class UserService /*implements UserDetailsService*/ {
         return repository.getByEmail(email);
     }
 
-    @Cacheable("users")
+//    @Cacheable("users")
     public List<User> getAll() {
         return repository.getAll();
     }

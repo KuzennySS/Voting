@@ -8,6 +8,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "dish_name"}, name = "menu_unique_idx")})
@@ -25,6 +26,10 @@ public class Menu extends AbstractBaseEntity {
     @Column(name = "price", nullable = false)
     @NotNull
     private Float price;
+
+    @Column(name = "date_menu", nullable = false)
+    @NotNull
+    private LocalDate dateMenu;
 
     public Integer getId() {
         return id;
@@ -58,9 +63,31 @@ public class Menu extends AbstractBaseEntity {
         this.price = price;
     }
 
-    public Menu(@NotNull Integer restaurantId, @NotBlank @Size(min = 2, max = 50) String dishName, @NotNull Float price) {
+    public LocalDate getDateMenu() {
+        return dateMenu;
+    }
+
+    public void setDateMenu(LocalDate dateMenu) {
+        this.dateMenu = dateMenu;
+    }
+
+    public Menu() {
+    }
+
+    public Menu(Integer id, @NotNull Integer restaurantId, @NotBlank @Size(min = 2, max = 50) String dishName, @NotNull Float price, @NotNull LocalDate dateMenu) {
+        super(id);
         this.restaurantId = restaurantId;
         this.dishName = dishName;
         this.price = price;
+        this.dateMenu = dateMenu;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "restaurantId=" + restaurantId +
+                ", dishName='" + dishName + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
