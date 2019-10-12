@@ -38,7 +38,7 @@ public class VotingService {
         return repository.getAll();
     }
 
-    public void update(Voting voting, LocalDate date) {
+    public void update(Voting voting, Integer id) {
         Assert.notNull(voting, "voting must not be null");
         repository.save(voting);
     }

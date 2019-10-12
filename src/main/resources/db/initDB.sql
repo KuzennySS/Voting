@@ -62,7 +62,7 @@ CREATE TABLE menu
     restaurant_id INTEGER       NOT NULL,
     dish_name     varchar(100)  NOT NULL,
     price         decimal(7, 2) NOT NULL,
-    voting_date   timestamp     NOT NULL,
+    date_menu     timestamp     NOT NULL,
     CONSTRAINT menu_unique_idx UNIQUE (restaurant_id, dish_name),
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
