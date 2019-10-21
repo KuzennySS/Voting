@@ -15,5 +15,7 @@ public interface VotingRepository {
     // null if not found
     Voting get(Integer id);
 
+    Voting getByDate(LocalDate date, Integer userId);
+
     List<Voting> getAll();
 }

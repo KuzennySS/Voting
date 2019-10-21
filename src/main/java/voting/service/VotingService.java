@@ -6,7 +6,6 @@ import org.springframework.util.Assert;
 import voting.model.Voting;
 import voting.repository.VotingRepository;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +31,10 @@ public class VotingService {
 
     public Voting get(Integer id) {
         return repository.get(id);
+    }
+
+    public Voting getByDate(LocalDate date, Integer userId){
+        return repository.getByDate(date, userId);
     }
 
     public List<Voting> getAll() {

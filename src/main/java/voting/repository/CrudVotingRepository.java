@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import voting.model.Voting;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface CrudVotingRepository extends JpaRepository<Voting, Integer> {
@@ -17,4 +19,8 @@ public interface CrudVotingRepository extends JpaRepository<Voting, Integer> {
 
     @Query("DELETE FROM Voting v WHERE v.votingDate=:date")
     Voting deleteByLocalDate(LocalDate date);*/
+
+    List<Voting> findAllByUserIdOrderById(int userId);
+
+    Optional<Voting> getVotingByVotingDateAndUserId(LocalDate date, int userId);
 }

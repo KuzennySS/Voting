@@ -25,11 +25,17 @@ public class DataJpaVotingRepository implements VotingRepository  {
 
     @Override
     public Voting get(Integer id) {
-            return crudVotingRepository.findById(id).orElse(null);
+            return crudVotingRepository.findById(id).orElseThrow();
     }
 
     @Override
     public List<Voting> getAll() {
         return crudVotingRepository.findAll();
     }
+
+    @Override
+    public Voting getByDate(LocalDate date, Integer userId){
+        return crudVotingRepository.getVotingByVotingDateAndUserId(date, userId).orElse(null);
+    }
+
 }

@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import voting.model.Voting;
 import voting.service.VotingService;
+import voting.util.VotingUtil;
+import voting.web.SecurityUtil;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,26 +46,37 @@ public class VotingRestController {
         return service.get(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Voting> createWithLocation(@RequestBody Voting voting) {
-        log.info("create {}", voting);
-        Voting created = service.create(voting);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
+    @GetMapping("/today/{userId}")
+    public Voting getByDate(@PathVariable int userId) {
+//        int userId = SecurityUtil.authUserId();
+        return service.getByDate(LocalDate.now(), userId);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        service.delete(id);
+    @GetMapping("vote/{restaurantId}")
+    public Voting vote(@PathVariable int restaurantId) {
+        int userId = SecurityUtil.authUserId();
+        Voting votingToday = service.getByDate(LocalDate.now(), userId);
+        Voting voteToday = null;
+        if (VotingUtil.pollByTime(votingToday)){
+            log.info("your vote was calculate");
+            voteToday = service.create(new Voting(userId, LocalDate.now(), restaurantId));
+        }
+        else {
+            log.info("voting is impossible today");
+        }
+        return voteToday;
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+/*    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@RequestBody Voting voting, @PathVariable int id) {
-        service.update(voting, id);
-    }
+        int userId = SecurityUtil.authUserId();
+        Voting votingToday = service.getByDate(LocalDate.now(), userId);
+        if (VotingUtil.pollByTime(votingToday)){
+            log.info("voting is possible today");
+            service.update(voting, id);
+        }
+        log.info("voting is impossible today");
+    }*/
 }
 

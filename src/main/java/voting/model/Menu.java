@@ -88,6 +88,7 @@ public class Menu extends AbstractBaseEntity {
                 "restaurantId=" + restaurantId +
                 ", dishName='" + dishName + '\'' +
                 ", price=" + price +
+                ", dateMenu=" + dateMenu +
                 '}';
     }
 }

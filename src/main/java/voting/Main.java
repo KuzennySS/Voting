@@ -2,19 +2,26 @@ package voting;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 import voting.model.User;
+import voting.model.Voting;
+import voting.service.UserService;
+import voting.service.VotingService;
 import voting.web.user.AdminRestController;
 
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.time.LocalDateTime.of;
+import static voting.model.AbstractBaseEntity.START_SEQ;
 
 public class Main {
     public static void main(String[] args) {
         // java 7 automatic resource management
-/*        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
-            appCtx.load(*//*"spring/spring-mvc.xml", *//*"spring/spring-db.xml", "spring/spring-app.xml");
+        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
+            appCtx.load("spring/spring-db.xml", "spring/spring-app.xml");
             appCtx.refresh();
 
-        System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));*/
+        System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
 /*        DataJpaUserRepository dataJpaUserRepo = appCtx.getBean(DataJpaUserRepository.class);
         System.out.println(dataJpaUserRepo.get(0).getEmail());*/
@@ -38,14 +45,13 @@ public class Main {
             List<Restaurant> list = restaurantService.getAll();
             list.forEach(System.out::println);*/
 
-/*            // test Result
-            ResultService resultService = appCtx.getBean( ResultService.class);
-            Result result2 = resultService.get(100020);
-            System.out.println(result2);
-            List<Result> resultList = resultService.getAll();
+            // test Result
+            VotingService resultService = appCtx.getBean(VotingService.class);
+            resultService.create(new Voting(null, START_SEQ, (of(2019, Month.SEPTEMBER, 30, 0, 0)).toLocalDate(),  START_SEQ + 4));
+            List<Voting> resultList = resultService.getAll();
             resultList.forEach(System.out::println);
-        }*/
-        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
+        }
+/*        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
             appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
             appCtx.refresh();
 
@@ -55,6 +61,6 @@ public class Main {
             System.out.println("-1----------------------------------------");
             System.out.println(list);
             System.out.println("-2----------------------------------------");
-        }
+        }*/
     }
 }

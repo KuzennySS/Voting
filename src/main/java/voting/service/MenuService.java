@@ -8,6 +8,8 @@ import voting.repository.MenuRepository;
 
 import java.util.List;
 
+import static voting.util.ValidationUtil.checkNotFoundWithId;
+
 @Service
 public class MenuService {
     private final MenuRepository repository;
@@ -18,25 +20,25 @@ public class MenuService {
     }
 
 
-    public Menu create(Menu menu) {
+    public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
-        return repository.save(menu);
+        return repository.save(menu, restaurantId);
     }
 
     public void delete(int id) {
         repository.delete(id);
     }
 
-    public Menu get(int id) {
-        return repository.get(id);
+    public Menu get(int id, int restaurantId) {
+        return repository.get(id, restaurantId);
     }
 
-    public List<Menu> getAll() {
-        return repository.getAll();
+    public List<Menu> getAll(int restaurantId) {
+        return repository.getAll(restaurantId);
     }
 
-    public void update(Menu menu, Integer id) {
+    public void update(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
-        repository.save(menu);
+        repository.save(menu, restaurantId);
     }
 }

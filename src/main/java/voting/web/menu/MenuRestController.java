@@ -32,23 +32,23 @@ public class MenuRestController {
 
     public static final String REST_URL = "/rest/menu";
 
-    @GetMapping
-    public List<Menu> getAll() {
+    @GetMapping("/{restaurantID}")
+    public List<Menu> getAll(@PathVariable int restaurantID) {
         log.info("getAll");
-        return service.getAll();
+        return service.getAll(restaurantID);
     }
 
-    @GetMapping("/{id}")
-    public Menu get(@PathVariable int id) {
-        return service.get(id);
+    @GetMapping("/{restaurantID}/{id}")
+    public Menu get(@PathVariable int id, @PathVariable int restaurantID) {
+        return service.get(id, restaurantID);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu) {
+    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu, @RequestBody int restaurantId) {
         log.info("create {}", menu);
-        Menu created = service.create(menu);
+        Menu created = service.create(menu, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
+                .path(REST_URL + "/{restaurantId}/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }

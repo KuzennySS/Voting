@@ -13,7 +13,11 @@ public class DataJpaMenuRepository implements MenuRepository {
     private CrudMenuRepository crudMenuRepo;
 
     @Override
-    public Menu save(Menu menu) {
+    public Menu save(Menu menu, int restaurantId)
+    {
+        if (!menu.isNew() && get(menu.getId(), restaurantId) == null) {
+            return null;
+        }
         return crudMenuRepo.save(menu);
     }
 
@@ -23,12 +27,12 @@ public class DataJpaMenuRepository implements MenuRepository {
     }
 
     @Override
-    public Menu get(Integer id) {
-        return crudMenuRepo.findById(id).orElse(null);
+    public Menu get(Integer id, int restaurantId) {
+        return crudMenuRepo.findById(id).filter(menu -> menu.getRestaurantId() == restaurantId).orElseThrow();
     }
 
     @Override
-    public List<Menu> getAll() {
-        return crudMenuRepo.findAll();
+    public List<Menu> getAll(int restaurantId) {
+        return crudMenuRepo.findAllByRestaurantIdOrderById(restaurantId);
     }
 }
